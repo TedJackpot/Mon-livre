@@ -1,0 +1,14 @@
+{
+  "id": "/",
+  "name": "Mon Livre — Studio éditorial",
+  "short_name": "Mon Livre",
+  "description": "Composez et mettez en page vos livres illustrés.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f0e9",
+  "theme_color": "#6e4038",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

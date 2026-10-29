@@ -1,26 +1,33 @@
-# Mon Livre — Studio éditorial
+# Mon Livre
 
-Application de mise en page de livres illustrés à partir de textes et d’images déjà créés.
+Mon Livre est un studio de mise en page pour créer des livres illustrés avec vos textes et vos images. Le dépôt contient une version autonome installable en application web (PWA), qui fonctionne avec des outils gratuits et conserve les données sur votre appareil.
 
-## Fonctions présentes
+## Démarrer en local
 
-- Mise en page de pages et choix de maquettes
-- Import de textes `.txt` et `.md`, et d’images
-- Couvertures personnalisables, titres, couleurs et marque-pages
-- Enregistrement des projets avec un compte
-- Export JSON et impression A5 / PDF depuis le navigateur
-- Accès aux catalogues gratuits de modèles Canva et Adobe Express
+Prérequis : Node.js 24 ou plus récent. Aucune dépendance npm externe, clé API ou abonnement n’est requis.
 
-## Organisation du dépôt
+```sh
+cd standalone
+npm start
+```
 
-Les dossiers `pages/`, `components/`, `helpers/`, `endpoints/`, `static/` et le fichier `base.css` sont les sources exportées du projet Floot. Les dépendances sont documentées dans `static/__dev/dependencies.json`. L’icône est copiée dans `static/mon-livre-icon.svg`.
+Ouvrez ensuite [http://localhost:4321](http://localhost:4321). Dans Chrome ou Edge sur ordinateur, utilisez l’icône d’installation dans la barre d’adresse ou le menu **Installer Mon Livre**. Le serveur Node sert l’interface et enregistre les comptes et projets dans `standalone/app-data/mon-livre.sqlite`.
 
-## Runtime et sauvegarde
+## Utiliser sur téléphone
 
-Ce dépôt est une sauvegarde des sources du projet Floot. Il ne constitue pas encore une application autonome installable avec `npm install` : le routage, les endpoints, les sessions et la base PostgreSQL utilisent le runtime et les ressources Floot. Les comptes et projets enregistrés dans la base Floot ne sont pas inclus dans GitHub.
+L’interface est adaptée aux petits écrans. Pour installer la PWA sur téléphone, l’application doit être servie via HTTPS (ou depuis `localhost` sur le téléphone). Un déploiement HTTPS gratuit peut être fait sur un hébergeur statique compatible, mais la sauvegarde SQLite locale nécessite alors un serveur Node persistant. Le service worker garde l’interface disponible après son premier chargement ; les images et projets restent stockés localement sur l’appareil ou dans le serveur local choisi.
 
-Pour exécuter cette version, il faut la réimporter dans Floot ou porter les routes, l’authentification et la base de données vers un environnement indépendant, puis configurer les variables secrètes côté serveur. Ne jamais ajouter de clés, mots de passe ou fichiers `.env` au dépôt.
+## Fonctions
 
-## Modèles Canva et Adobe
+- Maquettes de pages, styles de couverture, couleurs et polices.
+- Import d’images depuis l’appareil, recadrage/compression locale et suppression.
+- Texte, titres, pages duplicables/supprimables, marque-pages et aperçu.
+- Brouillon automatique dans le stockage du navigateur, export JSON et impression/PDF.
+- Comptes locaux et projets sauvegardés dans SQLite, avec mots de passe hachés.
+- Liens vers les catalogues de modèles gratuits de Canva et Adobe Express. Ces modèles restent hébergés par leurs plateformes d’origine ; leur badge gratuit, licence et conditions sont à vérifier avant réutilisation.
 
-Les modèles proposés dans l’interface ouvrent les bibliothèques officielles. Ils ne sont pas copiés dans le dépôt : leur disponibilité, leur badge gratuit et leurs conditions d’utilisation sont à vérifier sur chaque plateforme.
+## Données et limites
+
+La version locale ne synchronise pas les appareils : un compte créé sur un ordinateur n’existe que dans sa base SQLite locale. Exportez régulièrement les livres JSON pour en garder une copie. Pour accéder depuis d’autres appareils, il faut héberger le serveur et protéger l’accès réseau. Les services externes de modèles et les polices Google nécessitent une connexion internet ; l’éditeur et les brouillons locaux sont conçus pour rester utilisables hors ligne après chargement.
+
+Le code Floot d’origine est conservé dans les dossiers racine du dépôt. La version autonome se trouve dans `standalone/`.
